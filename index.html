@@ -1,0 +1,737 @@
+iraq Mohammed, [10/19/2025 7:10 PM]
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مختبر الرقابة الدوائية</title>
+    <style>
+        /* أنماط CSS الأساسية */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --doctor-color: #27ae60;
+            --self-color: #e74c3c;
+            --admin-color: #9b59b6;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            direction: rtl;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* أنماط صفحة الدخول */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .login-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        /* أنماط لوحة التحكم */
+        .dashboard {
+            display: none;
+        }
+        
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-role {
+            margin-left: 10px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .role-doctor {
+            background-color: var(--doctor-color);
+        }
+        
+        .role-self {
+            background-color: var(--self-color);
+        }
+        
+        .role-admin {
+            background-color: var(--admin-color);
+        }
+        
+        .logout-btn {
+            background: none;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 5px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            height: calc(100vh - 70px);
+
+position: fixed;
+            top: 70px;
+            right: 0;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            padding-top: 20px;
+            overflow-y: auto;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: var(--light-color);
+            border-right: 3px solid var(--secondary-color);
+        }
+        
+        .main-content {
+            margin-right: 250px;
+            padding: 20px;
+        }
+        
+        .page {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .page-header {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        
+        .stat-card .value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: right;
+        }
+        
+        th {
+            background-color: var(--light-color);
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-success {
+            background-color: var(--doctor-color);
+        }
+        
+        .btn-danger {
+            background-color: var(--self-color);
+        }
+        
+        /* أنماط الاستجابة للشاشات المختلفة */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+            }
+            
+            .main-content {
+                margin-right: 0;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- صفحة الدخول -->
+    <div class="login-container" id="loginPage">
+        <div class="login-form">
+            <h2>تسجيل الدخول</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">اسم المستخدم</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">كلمة المرور</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="userType">نوع المستخدم</label>
+
+Iraq Mohammed, [10/19/2025 7:10 PM]
+<select id="userType" required>
+                        <option value="">اختر نوع المستخدم</option>
+                        <option value="doctor">دكتور</option>
+                        <option value="self">ذاتية</option>
+                        <option value="admin">مدير النظام</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-block">دخول</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- لوحة التحكم -->
+    <div class="dashboard" id="dashboard">
+        <!-- الرأس -->
+        <header class="header">
+            <div class="container header-content">
+                <div class="logo">مختبر الرقابة الدوائية</div>
+                <div class="user-info">
+                    <button class="logout-btn" id="logoutBtn">تسجيل الخروج</button>
+                    <div class="user-role" id="userRoleDisplay"></div>
+                    <span id="userNameDisplay"></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- الشريط الجانبي -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="#" class="nav-link active" data-page="dashboardPage">لوحة التحكم</a></li>
+                <li id="usersManagementLink" style="display: none;"><a href="#" class="nav-link" data-page="usersPage">إدارة المستخدمين</a></li>
+                <li><a href="#" class="nav-link" data-page="materialsPage">إدارة المواد</a></li>
+                <li><a href="#" class="nav-link" data-page="reportsPage">التقارير والتحليلات</a></li>
+                <li id="chemistrySectionLink" style="display: none;"><a href="#" class="nav-link" data-page="chemistryPage">قسم الكيمياء</a></li>
+                <li id="warehouseSectionLink" style="display: none;"><a href="#" class="nav-link" data-page="warehousePage">المخزن</a></li>
+            </ul>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <!-- صفحة لوحة التحكم -->
+            <div class="page active" id="dashboardPage">
+                <div class="page-header">
+                    <h2>لوحة التحكم</h2>
+                </div>
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <h3>إجمالي المواد</h3>
+                        <div class="value" id="totalMaterials">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>المواد المنتهية الصلاحية</h3>
+                        <div class="value" id="expiredMaterials">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>المواد المضافة حديثاً</h3>
+                        <div class="value" id="recentMaterials">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>المستخدمين النشطين</h3>
+                        <div class="value" id="activeUsers">0</div>
+                    </div>
+                </div>
+                <div class="recent-activities">
+                    <h3>آخر الأنشطة</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>النشاط</th>
+                                <th>المستخدم</th>
+                                <th>التاريخ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activitiesTable">
+                            <!-- سيتم ملؤها بالبيانات -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- صفحة إدارة المستخدمين (للمدير فقط) -->
+            <div class="page" id="usersPage">
+                <div class="page-header">
+                    <h2>إدارة المستخدمين</h2>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="addUserBtn">إضافة مستخدم</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+
+Iraq Mohammed, [10/19/2025 7:10 PM]
+<th>اسم المستخدم</th>
+                            <th>نوع المستخدم</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTable">
+                        <!-- سيتم ملؤها بالبيانات -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- صفحة إدارة المواد -->
+            <div class="page" id="materialsPage">
+                <div class="page-header">
+                    <h2>إدارة المواد</h2>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="addMaterialBtn">إضافة مادة</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>اسم المادة</th>
+                            <th>النوع</th>
+                            <th>الكمية</th>
+                            <th>تاريخ الانتهاء</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="materialsTable">
+                        <!-- سيتم ملؤها بالبيانات -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- صفحة التقارير والتحليلات -->
+            <div class="page" id="reportsPage">
+                <div class="page-header">
+                    <h2>التقارير والتحليلات</h2>
+                </div>
+                <div class="reports-content">
+                    <div class="form-group">
+                        <label for="reportType">نوع التقرير</label>
+                        <select id="reportType">
+                            <option value="materials">تقرير المواد</option>
+                            <option value="expiry">تقرير المواد المنتهية الصلاحية</option>
+                            <option value="usage">تقرير استخدام المواد</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateRange">الفترة الزمنية</label>
+                        <input type="date" id="startDate">
+                        <span>إلى</span>
+                        <input type="date" id="endDate">
+                    </div>
+                    <button class="btn btn-primary" id="generateReportBtn">إنشاء التقرير</button>
+                    <div id="reportResults" style="margin-top: 20px;">
+                        <!-- سيتم عرض نتائج التقرير هنا -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- صفحة قسم الكيمياء (للدكتور فقط) -->
+            <div class="page" id="chemistryPage">
+                <div class="page-header">
+                    <h2>قسم الكيمياء</h2>
+                </div>
+                <div class="form-container">
+                    <form id="chemistryForm">
+                        <div class="form-group">
+                            <label for="materialName">اسم المادة</label>
+                            <input type="text" id="materialName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="materialDescription">وصف المادة</label>
+                            <textarea id="materialDescription" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="analysisMethod">طريقة التحليل</label>
+                            <input type="text" id="analysisMethod" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="materialStatus">حالة المادة</label>
+                            <select id="materialStatus" required>
+                                <option value="active">نشطة</option>
+                                <option value="inactive">غير نشطة</option>
+
+Iraq Mohammed, [10/19/2025 7:10 PM]
+<option value="pending">قيد المراجعة</option>
+                            </select>
+                        </div>
+                        <div class="action-buttons">
+                            <button type="submit" class="btn btn-success">إضافة المادة</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- صفحة المخزن (للذاتية فقط) -->
+            <div class="page" id="warehousePage">
+                <div class="page-header">
+                    <h2>المخزن</h2>
+                </div>
+                <div class="form-container">
+                    <form id="warehouseForm">
+                        <div class="form-group">
+                            <label for="warehouseMaterialName">اسم المادة</label>
+                            <input type="text" id="warehouseMaterialName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="materialType">نوع المادة</label>
+                            <select id="materialType" required>
+                                <option value="standard">مادة قياسية</option>
+                                <option value="chemical">مادة كيميائية</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="materialCategory">تصنيف المادة</label>
+                            <input type="text" id="materialCategory" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">الكمية</label>
+                            <input type="number" id="quantity" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="receiveDate">تاريخ الاستلام</label>
+                            <input type="date" id="receiveDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expiryDate">تاريخ الانتهاء</label>
+                            <input type="date" id="expiryDate" required>
+                        </div>
+                        <div class="action-buttons">
+                            <button type="submit" class="btn btn-success">إضافة إلى المخزن</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // بيانات التطبيق
+        let currentUser = null;
+        let materials = JSON.parse(localStorage.getItem('materials')) || [];
+        let users = JSON.parse(localStorage.getItem('users')) || [
+            { username: 'admin', password: 'admin123', type: 'admin', name: 'مدير النظام' },
+            { username: 'doctor', password: 'doctor123', type: 'doctor', name: 'د. أحمد محمد' },
+            { username: 'self', password: 'self123', type: 'self', name: 'موظف ذاتية' }
+        ];
+        let activities = JSON.parse(localStorage.getItem('activities')) || [];
+
+        // عناصر DOM
+        const loginPage = document.getElementById('loginPage');
+        const dashboard = document.getElementById('dashboard');
+        const loginForm = document.getElementById('loginForm');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const userRoleDisplay = document.getElementById('userRoleDisplay');
+        const userNameDisplay = document.getElementById('userNameDisplay');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+        
+        // عناصر الصلاحيات
+        const usersManagementLink = document.getElementById('usersManagementLink');
+        const chemistrySectionLink = document.getElementById('chemistrySectionLink');
+        const warehouseSectionLink = document.getElementById('warehouseSectionLink');
+
+        // أحداث تسجيل الدخول
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const userType = document.getElementById('userType').value;
+            
+            // التحقق من بيانات المستخدم
+            const user = users.find(u => u.username === username && u.password === password && u.type === userType);
+            
+            if (user) {
+                currentUser = user;
+                loginPage.style.display = 'none';
+                dashboard.style.display = 'block';
+                updateUserDisplay();
+                updatePermissions();
+                loadDashboardData();
+            } else {
+                alert('بيانات الدخول غير صحيحة!');
+            }
+        });
+
+        // تحديث عرض معلومات المستخدم
+        function updateUserDisplay() {
+            userNameDisplay.textContent = currentUser.name;
+            userRoleDisplay.textContent = getRoleName(currentUser.type);
+            userRoleDisplay.className = 'user-role role-' + currentUser.type;
+        }
+
+        // الحصول على اسم الدور
+        function getRoleName(role) {
+            switch(role) {
+                case 'admin': return 'مدير النظام';
+                case 'doctor': return 'دكتور';
+                case 'self': return 'ذاتية';
+                default: return 'مستخدم';
+            }
+        }
+
+        // تحديث الصلاحيات بناءً على نوع المستخدم
+        function updatePermissions() {
+            // إخفاء جميع الروابط أولاً
+            usersManagementLink.style.display = 'none';
+            chemistrySectionLink.style.display = 'none';
+            warehouseSectionLink.style.display = 'none';
+            
+            // إظهار الروافق بناءً على الصلاحيات
+            if (currentUser.type === 'admin') {
+                usersManagementLink.style.display = 'block';
+                chemistrySectionLink.style.display = 'block';
+                warehouseSectionLink.style.display = 'block';
+            } else if (currentUser.type === 'doctor') {
+                chemistrySectionLink.style.display = 'block';
+            } else if (currentUser.type === 'self') {
+                warehouseSectionLink.style.display = 'block';
+            }
+        }
+
+        // تحميل بيانات لوحة التحكم
+        function loadDashboardData() {
+            // تحديث الإحصائيات
+            document.getElementById('totalMaterials').textContent = materials.length;
+            document.getElementById('expiredMaterials').textContent = materials.filter(m => isExpired(m.expiryDate)).length;
+            document.getElementById('recentMaterials').textContent = materials.filter(m => isRecent(m.addedDate)).length;
+            document.getElementById('activeUsers').textContent = users.length;
+            
+            // تحديث جدول الأنشطة
+            const activitiesTable = document.getElementById('activitiesTable');
+            activitiesTable.innerHTML = '';
+            
+            const recentActivities = activities.slice(-5).reverse();
+            recentActivities.forEach(activity => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${activity.action}</td>
+                    <td>${activity.user}</td>
+                    <td>${activity.date}</td>
+                `;
+                activitiesTable.appendChild(row);
+            });
+        }
+
+        // التحقق من انتهاء صلاحية المادة
+        function isExpired(expiryDate) {
+            if (!expiryDate) return false;
+            return new Date(expiryDate) < new Date();
+        }
+
+        // التحقق من إضافة المادة مؤخراً
+        function isRecent(addedDate) {
+            if (!addedDate) return false;
+            const sevenDaysAgo = new Date();
+            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+            return new Date(addedDate) > sevenDaysAgo;
+        }
+
+        // التنقل بين الصفحات
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+
+
+// إزالة النشاط من جميع الروابط
+                navLinks.forEach(l => l.classList.remove('active'));
+                
+                // إضافة النشاط للرابط المحدد
+                this.classList.add('active');
+                
+                // إخفاء جميع الصفحات
+                pages.forEach(page => page.classList.remove('active'));
+                
+                // إظهار الصفحة المحددة
+                const pageId = this.getAttribute('data-page');
+                document.getElementById(pageId).classList.add('active');
+            });
+        });
+
+        // تسجيل الخروج
+        logoutBtn.addEventListener('click', function() {
+            currentUser = null;
+            dashboard.style.display = 'none';
+            loginPage.style.display = 'flex';
+            loginForm.reset();
+        });
+
+        // تهيئة التطبيق
+        function initApp() {
+            // حفظ البيانات الأولية إذا لم تكن موجودة
+            if (!localStorage.getItem('users')) {
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+            
+            if (!localStorage.getItem('activities')) {
+                // إضافة بعض الأنشطة الافتراضية
+                activities.push({
+                    action: 'تسجيل دخول',
+                    user: 'مدير النظام',
+                    date: new Date().toLocaleDateString('ar-EG')
+                });
+                localStorage.setItem('activities', JSON.stringify(activities));
+            }
+        }
+
+        // تشغيل التطبيق
+        initApp();
+    </script>
+</body>
+</html>\
